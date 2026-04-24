@@ -1,0 +1,29 @@
+repos:
+  - repo: https://github.com/pre-commit/pre-commit-hooks
+    rev: v5.0.0
+    hooks:
+      - id: check-yaml
+      - id: end-of-file-fixer
+      - id: trailing-whitespace
+      - id: check-added-large-files
+        args: ["--maxkb=1024"]
+
+  - repo: https://github.com/astral-sh/ruff-pre-commit
+    rev: v0.8.0
+    hooks:
+      - id: ruff
+        args: ["--fix"]
+      - id: ruff-format
+
+  - repo: https://github.com/pre-commit/mirrors-mypy
+    rev: v1.13.0
+    hooks:
+      - id: mypy
+        args: ["--strict"]
+        additional_dependencies:
+          - "pydantic>=2.9.0"
+          - "pydantic-settings>=2.6.0"
+          - "sqlalchemy[asyncio]>=2.0.36"
+          - "fastapi>=0.115.0"
+          - "types-aiofiles>=25.1.0.20260409"
+        files: ^src/
