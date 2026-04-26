@@ -1,4 +1,4 @@
-.PHONY: install run db-up db-down migrate migration test test-cov lint format typecheck check clean
+.PHONY: install run db-up db-down migrate migration test test-fast test-e2e test-all test-cov lint format typecheck check clean
 
 UV ?= uv
 
@@ -21,7 +21,15 @@ migration:
 	@test -n "$(m)" || (echo "Usage: make migration m=\"message\"" && exit 1)
 	$(UV) run alembic revision --autogenerate -m "$(m)"
 
-test:
+test: test-fast
+
+test-fast:
+	$(UV) run pytest -m "not e2e"
+
+test-e2e:
+	$(UV) run pytest -m e2e -v
+
+test-all:
 	$(UV) run pytest
 
 test-cov:

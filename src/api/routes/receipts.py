@@ -9,6 +9,7 @@ from src.api.dependencies import get_db, get_settings
 from src.core.config import Settings
 from src.repositories.receipt_repository import ReceiptRepository
 from src.schemas.receipt import ReceiptRead
+from src.services.processing_service import process_receipt
 from src.services.upload_service import (
     EmptyFileError,
     FileTooLargeError,
@@ -55,9 +56,11 @@ async def upload_receipt(
 
     repo = ReceiptRepository(session)
     receipt = await repo.create(image_path=str(stored.path))
+
+    receipt = await process_receipt(receipt.id, session)
     await session.commit()
 
-    logger.info("created receipt id=%s path=%s", receipt.id, stored.path)
+    logger.info("processed receipt id=%s status=%s", receipt.id, receipt.status)
     return ReceiptRead.model_validate(receipt)
 
 

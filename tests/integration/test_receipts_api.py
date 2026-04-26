@@ -44,7 +44,7 @@ async def test_upload_response_is_valid_receipt_read(
     )
     body = response.json()
     assert uuid.UUID(body["id"])
-    assert body["status"] == "pending"
+    assert body["status"] in ("processed", "needs_review", "failed")
     assert body["document_type"] == "unknown"
     assert body["currency"] == "PEN"
     assert body["image_path"].endswith(".png")

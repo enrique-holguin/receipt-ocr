@@ -21,6 +21,8 @@ class ReceiptRead(BaseModel):
     operation_code: str | None
     raw_ocr_text: str | None
     ocr_confidence: float | None
+    recipient_name: str | None
+    error_message: str | None
     image_path: str
     status: ReceiptStatus
     created_at: datetime

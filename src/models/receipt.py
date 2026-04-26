@@ -52,6 +52,8 @@ class Receipt(Base, TimestampMixin):
     operation_code: Mapped[str | None] = mapped_column(String, nullable=True)
     raw_ocr_text: Mapped[str | None] = mapped_column(Text, nullable=True)
     ocr_confidence: Mapped[float | None] = mapped_column(Float, nullable=True)
+    recipient_name: Mapped[str | None] = mapped_column(String, nullable=True)
+    error_message: Mapped[str | None] = mapped_column(Text, nullable=True)
     image_path: Mapped[str] = mapped_column(String, nullable=False)
     status: Mapped[ReceiptStatus] = mapped_column(
         SAEnum(ReceiptStatus, name="receipt_status", values_callable=_enum_values),
