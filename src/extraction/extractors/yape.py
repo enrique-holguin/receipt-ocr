@@ -77,7 +77,7 @@ def _parse_recipient(text: str) -> str | None:
     if not match:
         return None
     candidate = match.group(1).strip()
-    return candidate if len(candidate) >= 3 else None  # noqa: PLR2004  # min meaningful name length
+    return candidate if len(candidate) >= 3 else None
 
 
 def extract_yape(text: str) -> dict[str, Any]:

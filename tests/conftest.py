@@ -8,12 +8,12 @@ from typing import TYPE_CHECKING
 
 import pytest
 import pytest_asyncio
-import src.models.receipt  # noqa: F401 — registers Receipt in Base.metadata
 from httpx import ASGITransport, AsyncClient
 from PIL import Image
 from sqlalchemy import NullPool, text
 from sqlalchemy.ext.asyncio import AsyncSession, create_async_engine
 
+import src.models.receipt  # noqa: F401 — registers Receipt in Base.metadata
 from src.core.config import Settings
 from src.core.database import get_db
 from src.models.base import Base
